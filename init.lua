@@ -449,8 +449,13 @@ do
   --  Check out: https://github.com/nvim-mini/mini.nvim
 
   vim.g.slime_target = 'tmux'
+  vim.g.slime_no_mappings = true
+  vim.g.slime_default_config = {
+    socket_name = "default",
+    target_pane = "{last}",
+  }
+  vim.g.slime_dont_ask_default = 1
   vim.g.slime_bracketed_paste = 1
-  -- vim.g.slime_no_mappings = true
 
   vim.pack.add { gh 'jpalardy/vim-slime' }
 
@@ -987,10 +992,10 @@ do
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug'
-  -- require 'kickstart.plugins.indent_line'
+  require 'kickstart.plugins.indent_line'
   -- require 'kickstart.plugins.lint'
   -- require 'kickstart.plugins.autopairs'
-  -- require 'kickstart.plugins.neo-tree'
+  require 'kickstart.plugins.neo-tree'
   -- require 'kickstart.plugins.gitsigns' -- adds gitsigns recommended keymaps
 
   -- NOTE: You can add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
