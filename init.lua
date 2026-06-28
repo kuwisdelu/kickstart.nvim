@@ -106,9 +106,6 @@ do
   -- NOTE: You can change these options as you wish!
   --  For more options, you can see `:help option-list`
 
-  vim.o.wildmode = 'list:full,full'
-  vim.o.wildmenu = true
-
   -- Make line numbers default
   vim.o.number = true
   -- You can also add relative line numbers, to help with jumping.
@@ -373,7 +370,7 @@ do
     -- Document existing key chains
     spec = {
       { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
-      { '<leader>t', group = '[T]oggle' },
+      -- { '<leader>t', group = '[T]oggle' },
       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
       { 'gr', group = 'LSP Actions', mode = { 'n' } },
     },
@@ -450,6 +447,19 @@ do
 
   -- ... and there is more!
   --  Check out: https://github.com/nvim-mini/mini.nvim
+
+  vim.g.slime_target = 'tmux'
+  vim.g.slime_bracketed_paste = 1
+  -- vim.g.slime_no_mappings = true
+
+  vim.pack.add { gh 'jpalardy/vim-slime' }
+
+  vim.keymap.set('x', '<leader>r', '<Plug>SlimeRegionSend', { desc = '[R]un region' })
+  vim.keymap.set('n', '<leader>r', '<Plug>SlimeLineSend', { desc = '[R]un lines' })
+  vim.keymap.set('n', '<leader>m', '<Plug>SlimeMotionSend', { desc = 'Run [M]otion' })
+  vim.keymap.set('n', '<leader>p', '<Plug>SlimeParagraphSend', { desc = 'Run [P]aragraph' })
+  vim.keymap.set('n', '<leader>t', '<Plug>SlimeConfig', { desc = 'Configure tmux [T]arget' })
+
 end
 
 -- ============================================================
@@ -691,9 +701,9 @@ do
       -- code, if the language server you are using supports them
       --
       -- This may be unwanted, since they displace some of your code
-      if client and client:supports_method('textDocument/inlayHint', event.buf) then
-        map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
-      end
+      -- if client and client:supports_method('textDocument/inlayHint', event.buf) then
+      --   map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
+      -- end
     end,
   })
 
@@ -774,10 +784,10 @@ do
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-  for name, server in pairs(servers) do
-    vim.lsp.config(name, server)
-    vim.lsp.enable(name)
-  end
+  -- for name, server in pairs(servers) do
+  --   vim.lsp.config(name, server)
+  --   vim.lsp.enable(name)
+  -- end
 end
 
 -- ============================================================
